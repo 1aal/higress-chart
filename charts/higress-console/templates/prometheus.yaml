@@ -112,7 +112,7 @@ spec:
         app: {{ $appName }}
     spec:
       containers:
-      - image: {{ $config.image.repository }}:{{ $config.image.tag }}
+      - image: {{ $config.image.registry }}/{{ $config.image.repository }}:{{ $config.image.tag }}
         name: prometheus
         command:
         - "/bin/prometheus"

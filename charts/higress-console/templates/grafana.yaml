@@ -82,7 +82,7 @@ spec:
         - 0
       containers:
       - name: grafana
-        image: {{ $config.image.repository }}:{{ $config.image.tag }}
+        image: {{ $config.image.registry }}/{{ $config.image.repository }}:{{ $config.image.tag }}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ $port }}

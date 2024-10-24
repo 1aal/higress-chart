@@ -120,7 +120,7 @@ spec:
         args:
         - -config.file=/etc/loki/config/config.yaml
         - -target=all
-        image: {{ $config.image.repository }}:{{ $config.image.tag }}
+        image: {{ $config.image.registry }}/{{ $config.image.repository }}:{{ $config.image.tag }}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ $ports.http }}
