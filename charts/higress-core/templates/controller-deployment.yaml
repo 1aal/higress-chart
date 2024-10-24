@@ -35,7 +35,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.controller.securityContext | nindent 12 }}
-          image: "{{ .Values.controller.hub | default .Values.global.hub }}/{{ .Values.controller.image | default "higress" }}:{{ .Values.controller.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.images.registry | default .Values.global.registry }}/{{ .Values.images.controller.repository | default "higress/higress" }}:{{ .Values.images.controller.tag | default .Chart.AppVersion }}"
           args:
           - "serve"
           - --gatewaySelectorKey=higress
@@ -92,7 +92,7 @@ spec:
             mountPath: /var/log
 {{- if not .Values.global.enableHigressIstio }}
         - name: discovery
-          image: "{{ .Values.pilot.hub | default .Values.global.hub }}/{{ .Values.pilot.image | default "pilot" }}:{{ .Values.pilot.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.images.registry | default .Values.global.registry }}/{{ .Values.images.pilot.repository | default "higress/pilot" }}:{{ .Values.images.pilot.tag | default .Chart.AppVersion }}"
 {{- if .Values.global.imagePullPolicy }}
           imagePullPolicy: {{ .Values.global.imagePullPolicy }}
 {{- end }}

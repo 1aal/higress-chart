@@ -55,7 +55,7 @@ global:
   # Releases are published to docker hub under 'istio' project.
   # Dev builds from prow are on gcr.io
   hub: higress-registry.cn-hangzhou.cr.aliyuncs.com/higress
-
+  registry: higress-registry.cn-hangzhou.cr.aliyuncs.com
   # Specify image pull policy if default behavior isn't desired.
   # Default behavior: latest images will be Always else IfNotPresent.
   imagePullPolicy: ""
@@ -341,7 +341,8 @@ global:
     enabled: false
     promtail:
       image:
-        repository: higress-registry.cn-hangzhou.cr.aliyuncs.com/higress/promtail
+        registry: higress-registry.cn-hangzhou.cr.aliyuncs.com
+        repository: higress/promtail
         tag: 2.9.4
       port: 3101
       resources:
@@ -356,7 +357,18 @@ global:
   # The default value is "" and when caName="", the CA will be configured by other
   # mechanisms (e.g., environmental variable CA_PROVIDER).
   caName: ""
-hub: higress-registry.cn-hangzhou.cr.aliyuncs.com/higress
+
+images:
+  registry: higress-registry.cn-hangzhou.cr.aliyuncs.com
+  gateway:
+    repository: higress/gateway
+    tag: 2.0.1
+  controller:
+    repository: higress/higress
+    tag: 2.0.1
+  pilot:
+    repository: higress/pilot
+    tag: 2.0.1
 
 clusterName: ""
 # meshConfig defines runtime configuration of components, including Istiod and istio-agent behavior
@@ -412,8 +424,6 @@ gateway:
   # The readiness timeout seconds
   readinessTimeoutSeconds: 3
 
-  hub: higress-registry.cn-hangzhou.cr.aliyuncs.com/higress
-  tag: ""
   # revision declares which revision this gateway is a part of
   revision: ""
 
@@ -519,10 +529,7 @@ gateway:
 controller:
   name: "higress-controller"
   replicas: 1
-  image: higress
 
-  hub: higress-registry.cn-hangzhou.cr.aliyuncs.com/higress
-  tag: ""
   env: {}
 
   labels: {}
